@@ -8,29 +8,35 @@ import {
   SignInButton,
   SignOutButton,
 } from "@clerk/nextjs";
+import MiniProfile from "./MiniProfile";
 
 export default function LeftSidebar() {
   return (
-    <div className="flex flex-col gap-4 p-3">
-      <Link href="/">
-        <FaXTwitter className="w-16 h-16 cursor-pointer p-3 hover:bg-gray-100 rounded-full transition-all duration-200" />
-      </Link>
+    <div className="flex flex-col justify-between items-center h-screen">
+      <div className="flex flex-col gap-4 p-3">
+        <Link href="/">
+          <FaXTwitter className="w-16 h-16 cursor-pointer p-3 hover:bg-gray-100 rounded-full transition-all duration-200" />
+        </Link>
 
-      <Link
-        href="/"
-        className="flex items-center p-3 hover:bg-gray-100 rounded-full transition-all duration-200 gap-2 w-fit"
-      >
-        <HiHome className="w-7 h-7" />
-        <span className="font-bold hidden xl:inline">Home</span>
-      </Link>
+        <Link
+          href="/"
+          className="flex items-center p-3 hover:bg-gray-100 rounded-full transition-all duration-200 gap-2 w-fit"
+        >
+          <HiHome className="w-7 h-7" />
+          <span className="font-bold hidden xl:inline">Home</span>
+        </Link>
+        <SignedIn>
+          <SignOutButton className="bg-blue-400 text-white rounded-full hover:brightness-95 transition-all duration-200 w-48 h-9 shadow-md hidden xl:inline flex items-center justify-center" />
+        </SignedIn>
+
+        <SignedOut>
+          <SignInButton className="bg-blue-400 text-white rounded-full hover:brightness-95 transition-all duration-200 w-48 h-9 shadow-md hidden xl:inline flex items-center justify-center" />
+        </SignedOut>
+      </div>
 
       <SignedIn>
-        <SignOutButton className="bg-blue-400 text-white rounded-full hover:brightness-95 transition-all duration-200 w-48 h-9 shadow-md hidden xl:inline flex items-center justify-center" />
+        <MiniProfile />
       </SignedIn>
-
-      <SignedOut>
-        <SignInButton className="bg-blue-400 text-white rounded-full hover:brightness-95 transition-all duration-200 w-48 h-9 shadow-md hidden xl:inline flex items-center justify-center" />
-      </SignedOut>
     </div>
   );
 }
