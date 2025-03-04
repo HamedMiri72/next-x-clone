@@ -1,5 +1,6 @@
 import User from "../models/user.model.js"
-import {connect} from "../mongodb.js"
+import { connect } from "../mongodb/mongoose.js";  
+
 
 export const createOrUpdateUser = async ({
     id,
@@ -16,7 +17,7 @@ export const createOrUpdateUser = async ({
             {clerkId: id},
             {
                 $set:{
-                    email: email_addresses[0].email_addresss,
+                    email: email_addresses[0].email_address,
                     firstName: first_name,
                     lastName: last_name,
                     avatar: image_url,
@@ -35,7 +36,7 @@ export const createOrUpdateUser = async ({
 export const deleteUser = async(id) => {
     try{
         await connect();
-        await User.findOneAndDelete(id);
+        await User.findOneAndDelete({clerckId: id});
     }catch(error){
         console.log("Error occured in delete user!")
     }
