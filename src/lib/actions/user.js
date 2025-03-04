@@ -33,11 +33,17 @@ export const createOrUpdateUser = async ({
     }
 }
 
-export const deleteUser = async(id) => {
-    try{
+export const deleteUser = async (id) => { // ✅ Ensure 'id' is passed as a parameter
+    try {
         await connect();
-        await User.findOneAndDelete({clerckId: id});
-    }catch(error){
-        console.log("Error occured in delete user!")
+        const deletedUser = await User.findOneAndDelete({ clerkId: id }); // ✅ Pass 'id' as an object
+        if (!deletedUser) {
+            console.log("User not found.");
+            return null;
+        }
+        console.log("User deleted successfully:", deletedUser);
+        return deletedUser;
+    } catch (error) {
+        console.log("Error occurred in delete user:", error);
     }
-}
+};
