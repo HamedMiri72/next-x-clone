@@ -30,7 +30,7 @@ export const createOrUpdateUser = async ({
     }catch(error){
         console.log("Error occured in create or update user", error);
     }
-},
+}
 
 export const deleteUser = async(id) => {
     try{
