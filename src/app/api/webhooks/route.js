@@ -1,6 +1,6 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
-import { createOrUpdate, deleteUser } from '@/lib/actions/user'
+import { createOrUpdateUser, deleteUser } from '@/lib/actions/user'
 import { clerkClient } from '@clerk/nextjs/server'
 
 
@@ -58,7 +58,7 @@ export async function POST(req) {
     const {id, first_name, last_name, image_url, email_addresses, username} = 
     evt?.data;
     try{
-      await createOrUpdate(
+      await createOrUpdateUser(
         id,
         first_name,
         last_name,

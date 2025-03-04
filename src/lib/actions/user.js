@@ -1,7 +1,7 @@
 import User from "../models/user.model.js"
 import {connect} from "../mongodb.js"
 
-export const createOrUpdate = async ({
+export const createOrUpdateUser = async ({
     id,
     email_addresses,
     first_name,
