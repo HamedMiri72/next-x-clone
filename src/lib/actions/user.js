@@ -32,7 +32,7 @@ export const createOrUpdateUser = async ({
     }
 },
 
-export const deleteUser = async() => {
+export const deleteUser = async(id) => {
     try{
         await connect();
         await User.findOneAndDelete(id);
