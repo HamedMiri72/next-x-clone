@@ -55,52 +55,46 @@ export async function POST(req) {
   console.log('Webhook payload:', body);
 
   if (eventType === 'user.created' || eventType === 'user.updated') {
-    const {id, first_name, last_name, image_url, email_addresses, username} = 
-    evt?.data;
-    try{
+    const { id, first_name, last_name, image_url, email_addresses, username } =
+      evt?.data;
+    try {
       const user = await createOrUpdateUser(
         id,
         first_name,
         last_name,
         image_url,
         email_addresses,
-        username,
-
+        username
       );
-      if(user || eventType === "user.created"){
-        try{
+      if (user && eventType === 'user.created') {
+        try {
           await clerkClient.users.updateUserMetadata(id, {
             publicMetadata: {
               userMongoId: user._id,
             },
           });
-
-        }catch(error){
-          console.log("Error updating user metadata")
-
+        } catch (error) {
+          console.log('Error updating user metadata:', error);
         }
-
       }
-
-
-
-    }catch(error){
-      console.log("Error creating or updating user: ", error);
-      return new Response("Error occured", {status: 400});
+    } catch (error) {
+      console.log('Error creating or updating user:', error);
+      return new Response('Error occured', {
+        status: 400,
+      });
     }
   }
 
   if (eventType === 'user.deleted') {
-    const {id} = evt?.data;
-    try{
+    const { id } = evt?.data;
+    try {
       await deleteUser(id);
-
-    }catch(error){
-      console.log("Error occured in webhocke delete method!");
-      return new Response("Error occured", {
+    } catch (error) {
+      console.log('Error deleting user:', error);
+      return new Response('Error occured', {
         status: 400,
       });
-    };
+    }
   }
 
   return new Response('Webhook received', { status: 200 })
