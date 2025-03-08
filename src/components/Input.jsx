@@ -18,6 +18,10 @@ export default function Input() {
   const [imageLoading, setImageLoading] = useState(true);
 
 
+  if(!isLoaded || !isSignedIn){
+    return null;
+  }
+
 
 
   const addImageToPost = (e) => {
